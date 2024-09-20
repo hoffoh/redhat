@@ -1,4 +1,5 @@
 #!/bin/bash
+# Collects ceph data using toolbox pod (REQUIRED TOOLBOX POD)
 # Script to manual collect ceph info by RafRojas RedHat Support
 # This script will set some variables to use on a loop of commands and collect
 # the output on a new file with hostname and date.out
