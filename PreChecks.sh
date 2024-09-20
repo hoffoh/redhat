@@ -5,13 +5,33 @@
 clear
 SPACE="echo " 
 LINE="echo -------------------------------------------------------------------------------------------------------"
-CASENUM=$1
 
 ##################Functions##################################
 
 function main_menu (){
+get_case
 FILE="$CASENUM"_Pre.out && get_data
 echo $FILE
+}
+
+function get_case (){
+clear
+$LINE
+echo "-                                   List of cases downloaded                                          -"
+GETCASES=`ls -ltr ~ | grep cases | cut -d "/" -f 3`
+if [[ -z ${GETCASES} ]]
+then
+  echo -e "$LINE"
+  echo -e "NO CASES FOUND ON THE DIRECTORY""\0033[0m"
+else
+  $LINE
+  for n in $(echo $GETCASES)
+  do  
+    echo "-    $n" 
+  done
+fi
+$LINE && $LINE
+read -p " Case Number:> " CASENUM
 }
 
 function print_space(){
