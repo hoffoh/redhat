@@ -7,7 +7,7 @@
 FILENAME=ceph_$(hostname)_$(date -I).out
 NAMESPACE=openshift-storage
 ROOK_POD=$(oc -n ${NAMESPACE} get pod -l app=rook-ceph-operator -o jsonpath='{.items[0].metadata.name}')
-#CEPHCMD_ERR="timeout 10s oc exec $TOOLPOD -n openshift-storage --"
+# CEPHCMD_ERR="timeout 10s oc exec $TOOLPOD -n openshift-storage --"
 CEPHCMD="oc exec -it ${ROOK_POD} -n ${NAMESPACE} -- "
 ARGS="--cluster=${NAMESPACE} --conf=/var/lib/rook/${NAMESPACE}/${NAMESPACE}.config --keyring=/var/lib/rook/${NAMESPACE}/client.admin.keyring"
 
