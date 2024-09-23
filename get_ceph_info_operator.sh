@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script to manual collect ceph info by RafRojas RedHat Support
 # This script will set some variables to use on a loop of commands and collect
-# the output on a new file with hostname and date.out
+# the output on a new file with hostname and date.out using operator pod
 
 # Variables
 FILENAME=ceph_$(hostname)_$(date -I).out
