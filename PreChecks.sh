@@ -40,7 +40,7 @@ echo '' >> $FILE
 
 function get_data (){
 $LINE && $SPACE && echo "Looking for ODF must-gathers on case: $CASENUM" && $SPACE && $LINE
-MGSUBPATH=$(find  ~/$CASENUM/ -maxdepth 3 -type d | grep "odf-must-gather")
+MGSUBPATH=$(find  ~/$CASENUM/ -maxdepth 3 -type d | grep -E "odf-must-gather|ocs-must-gather")
  
 if [[ -z $MGSUBPATH ]]
   then
