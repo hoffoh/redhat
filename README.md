@@ -7,6 +7,8 @@ Usage:
 
 Used on supportshell where the cases are yanked
 
+### To collect a glusterfs summary of the cluster
+
     - bash ./checksos.sh
 
 Will scan home directory for case numbers and give a list, you need to select the case to get a list of sos-reports, finally select the number of the report to get data
