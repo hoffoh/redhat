@@ -1,5 +1,5 @@
-# Red hat non official bash scripts developed to help troubleshooting issues by Rafa Rojas 
-
+# Scripts developed to help troubleshooting issues by Rafa Rojas 
+#----------------------------------------------------------------
 
 ## Those scripts are used to get a summary from sos-report or ODF Must-gathers by running the script
 
