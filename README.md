@@ -9,8 +9,7 @@ Used on supportshell where the cases are yanked
 
     - #> ./checksos.sh
 
-  - Will scan home directory for case numbers and give a list, you need to select the case to get a list of sos-reports, finally select the number of the report to get data
-
+      * Will scan home directory for case numbers and give a list, you need to select the case to get a list of sos-reports, finally select the number of the report to get data
 
     - #> ./PreChecks.sh
 
