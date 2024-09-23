@@ -1,18 +1,18 @@
 # Scripts to help troubleshooting issues by Rafrojas
 
-## Those scripts are used to get a summary from sos-report or ODF Must-gathers by running the script
+## Those scripts are used locally to get a summary from sos-report or ODF Must-gathers by running the script:
 
 Usage:
 
 Used on supportshell where the cases are yanked
 
-### To collect a glusterfs summary of the cluster
+### To generate a glusterfs report of the cluster
 
     - bash ./checksos.sh
 
 Will scan home directory for case numbers and give a list, you need to select the case to get a list of sos-reports, finally select the number of the report to get data
 
-### To collect a Ceph/ODF report of general status 
+### To generate a Ceph/ODF report of general status 
 
     - bash ./PreChecks.sh
 
@@ -21,7 +21,7 @@ Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get d
 
 ## Share with customer below scripts to collect Ceph data from operator/toolbox or ODF data when must-gather is failing:
 
-### Scripts to collect data from Ceph:
+### Scripts to generate a report from Ceph:
 
   Using rook-ceph-operator pod:
 
@@ -31,10 +31,10 @@ Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get d
 
     - bash get_ceph_info_toolbox.sh
 
-## Script to collect data from ODF:
+## Script to generate a report from ODF:
 
     - bash get_odf_info.sh
 
-## Script to collect Local Storage Operator details from a node:
+## Script to generate a report from Local Storage Operator on a node:
 
     - bash get_lso_info.sh
