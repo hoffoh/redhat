@@ -1,4 +1,4 @@
-# Scripts developed to help troubleshooting issues by Rafa Rojas 
+# Scripts to help troubleshooting issues by Rafrojas@redhat.com 
 
 ## Those scripts are used to get a summary from sos-report or ODF Must-gathers by running the script
 
