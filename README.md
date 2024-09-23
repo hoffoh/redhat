@@ -30,9 +30,9 @@ get_ceph_info_toolbox.sh
 
 # Script to collect data from ODF:
 
-  - get_odf_info.sh
+    - get_odf_info.sh
 
 
 # Script to collect Local Storage Operator details from a node:
 
-  - get_lso_info.sh
+    - get_lso_info.sh
