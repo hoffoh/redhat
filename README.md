@@ -1,7 +1,7 @@
-## Red hat non official bash scripts developed to help troubleshooting issues by Rafa Rojas ##
+# Red hat non official bash scripts developed to help troubleshooting issues by Rafa Rojas 
 
 
-# Those scripts are used to get a summary from sos-report or ODF Must-gathers by running the script
+## Those scripts are used to get a summary from sos-report or ODF Must-gathers by running the script
 
 Usage:
 
@@ -16,10 +16,9 @@ Will scan home directory for case numbers and give a list, you need to select th
 Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get data from selected ODF Must gather on the case
 
 
-# Share with customer below scripts to collect Ceph data from operator/toolbox or ODF data:
+## Share with customer below scripts to collect Ceph data from operator/toolbox or ODF data:
 
-
-# Scripts to collect data from Ceph:
+## Scripts to collect data from Ceph:
 
   Using rook-ceph-operator pod:
 
@@ -29,12 +28,11 @@ Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get d
 
 get_ceph_info_toolbox.sh
 
-
-# Script to collect data from ODF:
+## Script to collect data from ODF:
 
     - bash get_odf_info.sh
 
 
-# Script to collect Local Storage Operator details from a node:
+## Script to collect Local Storage Operator details from a node:
 
     - bash get_lso_info.sh
