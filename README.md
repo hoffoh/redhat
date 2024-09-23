@@ -13,14 +13,16 @@ Used on supportshell where the cases are yanked
 
 Will scan home directory for case numbers and give a list, you need to select the case to get a list of sos-reports, finally select the number of the report to get data
 
+### To collect a Ceph/ODF report of general status 
+
     - bash ./PreChecks.sh
 
 Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get data from selected ODF Must gather on the case
 
 
-## Share with customer below scripts to collect Ceph data from operator/toolbox or ODF data:
+## Share with customer below scripts to collect Ceph data from operator/toolbox or ODF data when must-gather is failing:
 
-## Scripts to collect data from Ceph:
+### Scripts to collect data from Ceph:
 
   Using rook-ceph-operator pod:
 
@@ -28,12 +30,11 @@ Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get d
 
   Using rook-ceph-toolbox pod:
 
-get_ceph_info_toolbox.sh
+    - bash get_ceph_info_toolbox.sh
 
 ## Script to collect data from ODF:
 
     - bash get_odf_info.sh
-
 
 ## Script to collect Local Storage Operator details from a node:
 
