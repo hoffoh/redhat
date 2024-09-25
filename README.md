@@ -2,7 +2,7 @@
 
 NOTE: If you find any issue running them please reach me at rafrojas@redhat.com
 
-### Used on supportshell
+# Used on supportshell
 
 ### To generate a glusterfs report of the cluster
 
@@ -16,7 +16,7 @@ Will scan home directory for case numbers and give a list, you need to select th
 
 Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get data from selected ODF Must gather on the case
 
-### Share with customer 
+# Share with customer 
 
 ## Share with customer below scripts to collect Ceph data from operator/toolbox or ODF data when must-gather is failing:
 
