@@ -2,6 +2,7 @@
 # Script to collect data generating a output file with the hostname + date and extension .out
 # You can debug executing 'bash -x scriptname.sh' with root privileges
 # You need to check if devices are sdX or vdX and change as required head command from below
+
 # Variables
 FILENAME=$(hostname)_$(date -I).out 
 ITEMS=(
@@ -20,6 +21,7 @@ ITEMS=(
 "head --bytes=60 /dev/sdi"
 "head --bytes=60 /dev/sdj"
 ) 
+
 # Control the field separator for array spaces
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
