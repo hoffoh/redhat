@@ -7,7 +7,6 @@ clear
 SPACE="echo " 
 LINE="echo -------------------------------------------------------------------------------------------------------"
 TITLES=("CLUSTER" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD")
-CEPH_CMD=("ceph_health_detail" "ceph_status" "ceph_df_detail" "ceph_device_ls" "ceph_osd_df_tree")
 ##################Functions##################################
 
 function main_menu (){
@@ -44,11 +43,6 @@ function print_title(){
 echo '' >> $FILE ; echo "--- ${TITLES[$X]} ---" >> $FILE ; echo '' >> $FILE
 }
 
-function print_ceph(){
-cat $CEPH_FINAL_PATH/${CEPH_CMD[$Y]} >> $FILE
-
-}
-
 function get_data (){
 $LINE && $SPACE && echo "Looking for ODF must-gathers on case: $CASENUM" && $SPACE && $LINE
 MGSUBPATH=$(find  ~/$CASENUM/ -maxdepth 3 -type d | grep -E "odf4-odf-must-gather|ocs-must-gather")
@@ -79,19 +73,14 @@ get_ceph
 function get_ceph (){
 echo '' > $FILE ; echo "[CEPH]" >> $FILE
 X=0;print_title
-Y=0;print_ceph
-Y=1;print_ceph
-#cat $CEPH_FINAL_PATH/ceph_health_detail >> $FILE && print_space
-#cat $CEPH_FINAL_PATH/ceph_status >> $FILE && print_space
-X=2;print_title
-Y=4;print_ceph
-#cat $CEPH_FINAL_PATH/ceph_df_detail  >> $FILE
+cat $CEPH_FINAL_PATH/ceph_health_detail >> $FILE && print_space
+cat $CEPH_FINAL_PATH/ceph_status >> $FILE && print_space
+cat $CEPH_FINAL_PATH/ceph_df_detail  >> $FILE
 X=1;print_title
-Y=3;print_ceph
-#cat $CEPH_FINAL_PATH/ceph_device_ls  >> $FILE
+cat $CEPH_FINAL_PATH/ceph_device_ls  >> $FILE
+X=2;print_title
+cat $CEPH_FINAL_PATH/ceph_osd_df_tree >> $FILE
 X=3;print_title
-Y=5;print_ceph
-#cat $CEPH_FINAL_PATH/ceph_osd_df_tree >> $FILE
 egrep ^osd. $CEPH_FINAL_PATH/ceph_osd_dump | awk '{print $1 "    " $17}' >> $FILE
 X=4;print_title
 grep "ceph_version\"" $CEPH_FINAL_PATH/ceph_service_dump | cut -d : -f 2 >> $FILE && print_space

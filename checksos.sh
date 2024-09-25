@@ -16,7 +16,7 @@ function get_case (){
 clear
 $LINE
 echo "-                                   List of cases downloaded                                          -"
-GETCASES=`ls -ltr | grep cases | cut -d "/" -f 3`
+GETCASES=`ls -ltr ~ | grep cases | cut -d "/" -f 3`
 if [[ -z ${GETCASES} ]]
 then
   echo -e "$RED"
@@ -37,7 +37,7 @@ clear
 $LINE
 echo "case number $CASE"
 $LINE
-ls -1d $CASE/*-"sos"* | grep -v md5
+ls -1d ~/$CASE/*-"sos"* | grep -v md5
 $LINE 
 echo "#    From list, select the case report XXX0-sos-report name from 1 to 999   #"
 $LINE && $LINE
@@ -52,7 +52,7 @@ function grep_soft (){
 echo [SOFTWARE INFO]
 for i in $(seq -f '%03g' $FILES)
 do 
-  GETFOLDERNAME=`ls -1d $CASE/$i* 2>/dev/null`
+  GETFOLDERNAME=`ls -1d ~/$CASE/$i* 2>/dev/null`
   GETNAME=`cat $GETFOLDERNAME/*/etc/hostname 2>/dev/null`
   if [[ -z ${GETNAME} ]]
   then
@@ -73,7 +73,7 @@ echo [GLUSTER]
 $LINE
 for o in $(seq -f '%03g' $FILES)
 do 
-  GETFOLDERNAME=`ls -1d $CASE/$o* 2>/dev/null`
+  GETFOLDERNAME=`ls -1d ~/$CASE/$o* 2>/dev/null`
   VOLUMEINFO=`grep -E "Name|Type|Number| $" $GETFOLDERNAME/*/sos_commands/gluster/gluster_volume_info 2>/dev/null`
   GETBRICKSOFF=`grep " N " $GETFOLDERNAME/*/sos_commands/gluster/gluster_volume_status 2>/dev/null | grep -v "Daemon"`
   GETPOOLINFO=`cat  $GETFOLDERNAME/*/sos_commands/gluster/gluster_pool_list 2>/dev/null`
@@ -83,7 +83,7 @@ do
   then
    : 
   else
-    echo "-      Gluster File: $GETFOLDERNAME"
+    echo "- Gluster File: $GETFOLDERNAME"
     $LINE
     echo "${VOLUMEINFO[*]}"
 #Checking bricks
