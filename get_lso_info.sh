@@ -1,6 +1,7 @@
 #!/bin/bash
 # Script to collect data generating a output file with the hostname + date and extension .out
 # You can debug executing 'bash -x scriptname.sh' with root privileges
+# You need to check if devices are sdX or vdX and change as required head command from below
 # Variables
 FILENAME=$(hostname)_$(date -I).out 
 ITEMS=(

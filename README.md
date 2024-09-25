@@ -38,3 +38,5 @@ Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get d
 ## Script to generate a report from Local Storage Operator on a node:
 
     - bash get_lso_info.sh
+
+Script is created assuming that you have devices named /dev/sdX , you need to change the head command on the script if are different (Ex. vda,vdb...)
