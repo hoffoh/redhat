@@ -6,7 +6,7 @@
 clear
 SPACE="echo " 
 LINE="echo -------------------------------------------------------------------------------------------------------"
-
+TITLES=("CLUSTER" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD")
 ##################Functions##################################
 
 function main_menu (){
@@ -39,6 +39,10 @@ function print_space(){
 echo '' >> $FILE
 }
 
+function print_title(){
+echo '' >> $FILE ; echo "--- ${TITLES[$X]} ---" >> $FILE ; echo '' >> $FILE
+}
+
 function get_data (){
 $LINE && $SPACE && echo "Looking for ODF must-gathers on case: $CASENUM" && $SPACE && $LINE
 MGSUBPATH=$(find  ~/$CASENUM/ -maxdepth 3 -type d | grep -E "odf4-odf-must-gather|ocs-must-gather")
@@ -67,40 +71,41 @@ get_ceph
 }
 
 function get_ceph (){
-echo '' > $FILE
-echo "[CEPH]" >> $FILE && print_space && echo "--- CLUSTER ---" >> $FILE && print_space
+echo '' > $FILE ; echo "[CEPH]" >> $FILE
+X=0;print_title
 cat $CEPH_FINAL_PATH/ceph_health_detail >> $FILE && print_space
 cat $CEPH_FINAL_PATH/ceph_status >> $FILE && print_space
 cat $CEPH_FINAL_PATH/ceph_df_detail  >> $FILE
-print_space && echo "--- DEVICES ---" >> $FILE && print_space
+X=1;print_title
 cat $CEPH_FINAL_PATH/ceph_device_ls  >> $FILE
-print_space && echo "--- TREE ---" >> $FILE && print_space
+X=2;print_title
 cat $CEPH_FINAL_PATH/ceph_osd_df_tree >> $FILE
-print_space && echo "--- OSD ---" >> $FILE && print_space
+X=3;print_title
 egrep ^osd. $CEPH_FINAL_PATH/ceph_osd_dump | awk '{print $1 "    " $17}' >> $FILE
-print_space && echo "--- VERSION ---" >> $FILE && print_space
+X=4;print_title
 grep "ceph_version\"" $CEPH_FINAL_PATH/ceph_service_dump | cut -d : -f 2 >> $FILE && print_space
 get_odf
 }
 
 function get_odf (){
 omg use $FINAL_PATH
-echo "[ODF]" >> $FILE && print_space && echo "--- PVC ---" >> $FILE && print_space
+echo "[ODF]" >> $FILE
+X=5;print_title
 omg get pvc >> $FILE
-print_space && echo "--- CSV ---" >> $FILE && print_space
+X=6;print_title
 cat $FINAL_PATH/namespaces/openshift-storage/oc_output/csv  >> $FILE && print_space
-print_space && echo "--- DEPLOYMENTS---" >> $FILE && print_space
+X=7;print_title
 omg get deployments >> $FILE && print_space
-print_space && echo "--- EVENTS ---" >> $FILE && print_space
-omg get events >> $FILE && print_space
-echo "--- PV ---" >> $FILE && print_space 
+X=8;print_title
+omg get events >> $FILE
+X=9;print_title
 omg get pvc | head -n 1 >> $FILE
 omg get pvc |grep deviceset >> $FILE && print_space
 for i in $(omg get pv | grep deviceset | awk '{print $1}'); do 
   echo $i >> $FILE
   omg get pv $i -o yaml| grep -Ei " kubernetes.io/hostname: | path: | Volumepath| driver:" >> $FILE
 done
-print_space && echo "--- OSD ---" >> $FILE && print_space
+X=10;print_title
 omg get pods | grep osd >> $FILE && print_space
 for i in $(omg get deployment | grep osd | awk '{print $1}'); do
   echo $i >> $FILE
