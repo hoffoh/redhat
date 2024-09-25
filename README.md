@@ -1,10 +1,8 @@
-# Scripts to help troubleshooting issues by Rafrojas
+# Scripts to help troubleshooting Rafrojas
 
-## Those scripts are used locally to get a summary from sos-report or ODF Must-gathers by running the script:
+NOTE: If you find any issue running them please reach me at rafrojas@redhat.com
 
-Usage:
-
-Used on supportshell where the cases are yanked
+### Used on supportshell
 
 ### To generate a glusterfs report of the cluster
 
@@ -18,6 +16,7 @@ Will scan home directory for case numbers and give a list, you need to select th
 
 Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get data from selected ODF Must gather on the case
 
+### Share with customer 
 
 ## Share with customer below scripts to collect Ceph data from operator/toolbox or ODF data when must-gather is failing:
 
@@ -30,6 +29,8 @@ Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get d
   Using rook-ceph-toolbox pod:
 
     - bash get_ceph_info_toolbox.sh
+
+
 
 ## Script to generate a report from ODF:
 
