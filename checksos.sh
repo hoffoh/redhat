@@ -4,7 +4,6 @@
 # Created if statement for hostname not found, and re-direct to error
 # Removed md5 from list
 # get_cases function with error and alignment
-
 ######################Vars###################################
 
 LINE="echo -------------------------------------------------------------------------------------------------------"
