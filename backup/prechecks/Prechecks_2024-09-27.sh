@@ -2,7 +2,7 @@
 # Script to get report from pre-checks after upgrade from Ceph and ODF
 # Manual intervention is required (case num and ODF MG Path) this only summarizes some info not checking all the data
 # Version 2
-######################Vars###################################
+######################Vars##################################
 clear
 SPACE="echo " 
 LINE="echo -------------------------------------------------------------------------------------------------------"
