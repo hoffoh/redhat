@@ -1,19 +1,25 @@
 #!/bin/bash
 # Script to get report from pre-checks after upgrade from Ceph and ODF
 # Manual intervention is required (case num and ODF MG Path) this only summarizes some info not checking all the data
+# You can force to run on a path by entering the path as argument 
 # Version 2
 ######################Vars###################################
 clear
 SPACE="echo " 
 LINE="echo -------------------------------------------------------------------------------------------------------"
 TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL")
+MANUALPATH=$1
 CEPH_CMD=("ceph_health_detail" "ceph_status" "ceph_df_detail" "ceph_device_ls" "ceph_osd_df_tree")
 ##################Functions##################################
 
 function main_menu (){
 get_case
 FILE="$CASENUM"_Pre.out && get_data
-echo $FILE
+$LINE
+$SPACE
+echo "Output Report from $FINAL_PATH"
+echo "File: $FILE"
+$SPACE
 }
 
 function get_case (){
@@ -53,11 +59,20 @@ function get_data (){
 $LINE && $SPACE && echo "Looking for ODF must-gathers on case: $CASENUM" && $SPACE && $LINE
 MGSUBPATH=$(find  ~/$CASENUM/ -maxdepth 3 -type d | grep -E "odf4-odf-must-gather|ocs-must-gather" | grep -Ev "ceph$|resources$|namespaces$|noobaa$|\.zip$" | sort )
 
-if [[ -n $1 ]]
+if [[ -n "$MANUALPATH" ]]
   then
-    MGSUBPATH=$1
+    MGSUBPATH="/cases/$CASENUM/$MANUALPATH"
+    FINAL_PATH="/cases/$CASENUM/$MANUALPATH"
+    CEPH_FINAL_PATH="$FINAL_PATH/ceph/must_gather_commands"
+    get_ceph
+    $LINE
+    $SPACE
+    echo "Output Report from $FINAL_PATH"
+    echo "File: $FILE"
+    $SPACE
+    exit 0
 fi
- 
+
 if [[ -z $MGSUBPATH ]]
   then
     echo "Cannot find any ODF Must gather on:  ~/$CASENUM"
