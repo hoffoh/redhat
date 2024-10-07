@@ -15,11 +15,8 @@ CEPH_CMD=("ceph_health_detail" "ceph_status" "ceph_df_detail" "ceph_device_ls" "
 function main_menu (){
 get_case
 FILE="$CASENUM"_Pre.out && get_data
-$LINE
-$SPACE
-echo "Output Report from $FINAL_PATH"
-echo "File: $FILE"
-$SPACE
+$LINE && $SPACE && echo "Ceph path: $CEPH_FINAL_PATH" &&  echo "ODF path: $FINAL_PATH" && $SPACE
+echo "File: $FILE" && $SPACE
 }
 
 function get_case (){
@@ -65,11 +62,8 @@ if [[ -n "$MANUALPATH" ]]
     FINAL_PATH="/cases/$CASENUM/$MANUALPATH"
     CEPH_FINAL_PATH="$FINAL_PATH/ceph/must_gather_commands"
     get_ceph
-    $LINE
-    $SPACE
-    echo "Output Report from $FINAL_PATH"
-    echo "File: $FILE"
-    $SPACE
+    $LINE &&  $SPACE && echo "Ceph path: $CEPH_FINAL_PATH" &&  echo "ODF path: $MGSUBPATH" && $SPACE
+    echo "File: $FILE" && $SPACE
     exit 0
 fi
 
