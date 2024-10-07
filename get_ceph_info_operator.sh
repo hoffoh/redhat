@@ -15,6 +15,7 @@ ARGS="--cluster=${NAMESPACE} --conf=/var/lib/rook/${NAMESPACE}/${NAMESPACE}.conf
 ITEMS=(
 "$CEPHCMD ceph status"
 "$CEPHCMD ceph df detail"
+"$CEPHCMD ceph osd df tree"
 "$CEPHCMD ceph health detail"
 "$CEPHCMD ceph crash ls"
 "$CEPHCMD ceph fs status"
