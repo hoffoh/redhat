@@ -16,6 +16,8 @@ Will scan home directory for case numbers and give a list, you need to select th
 
 Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get data from selected ODF Must gather on the case
 
+* If you provides argument with the path of the must-gather it will go through the directory after confirm the case number to create the report
+
 # Share with customer 
 
 ## Share with customer below scripts to collect Ceph data from operator/toolbox or ODF data when must-gather is failing:
