@@ -18,6 +18,8 @@ Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get d
 
 * If you provides argument with the path of the must-gather it will go through the directory after confirm the case number to create the report
 
+  #> PreChecks.sh 0010-must-gather.local.4638465044622777996.tar.gz/must-gather.local.4638465044622777996/inspect.local.1261512429828137083
+
 # Share with customer 
 
 ## Share with customer below scripts to collect Ceph data from operator/toolbox or ODF data when must-gather is failing:
