@@ -9,7 +9,7 @@ SPACE="echo "
 LINE="echo -------------------------------------------------------------------------------------------------------"
 TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL")
 MANUALPATH=$1
-CEPH_CMD=("ceph_health_detail" "ceph_status" "ceph_df_detail" "ceph_device_ls" "ceph_osd_df_tree")
+CEPH_CMD=("ceph_health_detail" "ceph_status" "ceph_df_detail" "ceph_device_ls" "ceph_osd_df_tree" "ceph_versions")
 ##################Functions##################################
 
 function main_menu (){
@@ -104,7 +104,7 @@ Y=3;print_ceph
 X=3;print_title
 egrep ^osd. $CEPH_FINAL_PATH/ceph_osd_dump | awk '{print $1 "    " $17}' >> $FILE
 X=4;print_title
-grep "ceph_version\"" $CEPH_FINAL_PATH/ceph_service_dump | cut -d : -f 2 >> $FILE && print_space
+Y=5;print_ceph;print_space
 get_odf
 }
 
