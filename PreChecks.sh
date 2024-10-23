@@ -7,9 +7,10 @@
 clear
 SPACE="echo " 
 LINE="echo -------------------------------------------------------------------------------------------------------"
-TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL")
+TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL" "HISTORY")
 MANUALPATH=$1
 CEPH_CMD=("ceph_health_detail" "ceph_status" "ceph_df_detail" "ceph_device_ls" "ceph_osd_df_tree" "ceph_versions")
+OSD_HISTORY="cluster-scoped-resources/config.openshift.io/clusterversions/version.yaml"
 ##################Functions##################################
 
 function main_menu (){
@@ -111,6 +112,8 @@ get_odf
 function get_odf (){
 omg use $FINAL_PATH
 echo "[ODF]" >> $FILE
+X=12;print_title
+cat $FINAL_PATH/$OSD_HISTORY | grep -A200 " history:" | grep -Ei " version:|completion" >> $FILE && print_space
 X=5;print_title
 omg get pvc >> $FILE
 X=6;print_title
