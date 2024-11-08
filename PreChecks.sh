@@ -137,6 +137,7 @@ for i in $(omg get deployment | grep osd | awk '{print $1}'); do
   echo $i >> $FILE
   omg get deployment $i -o yaml | grep "\- devicePath:" | grep -v block >> $FILE 
   omg get deployment $i -o yaml | grep " claimName" >> $FILE 
+  omg get deployment $i -o yaml | grep -EA1 " ROOK_CV_MODE$" >> $FILE 
 done
 }
 
