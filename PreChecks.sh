@@ -116,8 +116,6 @@ X=12;print_title
 cat $FINAL_PATH/$OSD_HISTORY | grep -A200 " history:" | grep -Ei " version:|completion" >> $FILE && print_space
 X=13;print_title
 omg get jobs>> $FILE
-X=5;print_title
-omg get pvc >> $FILE
 X=6;print_title
 cat $FINAL_PATH/namespaces/openshift-storage/oc_output/csv  >> $FILE && print_space
 X=7;print_title
