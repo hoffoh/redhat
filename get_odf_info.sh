@@ -5,6 +5,7 @@
 
 #-- Variables --
 FILENAME=odf_$(hostname)_$(date -I).out
+LOGSFILE=odf_$(hostname)_$(date -I)_logs.out
 TOOLPOD=$(oc get pods -n openshift-storage -l app=rook-ceph-tools -o name)
 #CEPHCMD_ERR="timeout 10s oc exec $TOOLPOD -n openshift-storage --"
 ODFCMD="oc get -n openshift-storage "
@@ -13,6 +14,8 @@ ODFCMD="oc get -n openshift-storage "
 ITEMS=(
 "$ODFCMD  clusterversion"
 "$ODFCMD  csv"
+"$ODFCMD  subscriptions"
+"$ODFCMD  installplan"
 "$ODFCMD  pods -owide"
 "$ODFCMD  all"
 "$ODFCMD  pv"
@@ -22,20 +25,29 @@ ITEMS=(
 "$ODFCMD  events --sort-by='.lastTimestamp'"
 "$ODFCMD  deployments"
 "oc -n openshift-local-storage describe localvolumeset localblock"
+)
 
 #-- Control the field separator for array spaces --
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
 
 #-- Function --
+collect_podlogs () {
+for MYPOD in $(oc get pods -n openshift-storage --no-headers|grep -v NAME|awk '{ print $1 }')
+do echo 'Collecting logs from '$MYPOD >> $MYPOD.log 
+   oc logs -n openshift-storage $MYPOD >> $MYPOD.log
+done
+}
+
 collect_data () {
 echo "=====-----_____ ODF REPORT _____-----======" > $FILENAME
 for i in ${ITEMS[@]}
 do echo '' >> $FILENAME
-        echo "#> $i" >> $FILENAME
-        eval "$i" >> $FILENAME
+   echo "#> $i" >> $FILENAME
+   eval "$i" >> $FILENAME
 done
 }
 
 #Main
 collect_data
+#collect_podlogs
