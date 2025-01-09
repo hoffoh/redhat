@@ -16,14 +16,13 @@ ITEMS=(
 "$ODFCMD  pods -owide"
 "$ODFCMD  all"
 "$ODFCMD  pv"
+"$ODFCMD  pvc"
 "$ODFCMD  sc"
 "$ODFCMD  storagecluster -o yaml"
-"$ODFCMD  events --sort-by='.lastTimestamp' -n openshift-storage"
-"oc -n openshift-local-storage describe localvolumeset localblock"
-"$ODFCMD  pvc -n opensift-storage"
-"oc describe pvc-73749495-3ca3-41b9-95ef-47c35a3f751b"
+"$ODFCMD  events --sort-by='.lastTimestamp'"
 "$ODFCMD  deployments"
-)
+"oc -n openshift-local-storage describe localvolumeset localblock"
+"for mypod in $(oc  -n openshift-storage get pods|grep -v NAME|awk '{ print $1 }');do oc -n openshift-storage logs $mypod" >> $FILENAME)
 
 #-- Control the field separator for array spaces --
 SAVEIFS=$IFS
