@@ -130,7 +130,7 @@ for i in $(omg get pv | grep deviceset | awk '{print $1}'); do
   omg get pv $i -o yaml| grep -Ei " kubernetes.io/hostname: | path: | Volumepath| driver:" >> $FILE
 done
 X=10;print_title
-omg get pods | grep osd >> $FILE && print_space
+omg get pods -o wide | grep osd >> $FILE && print_space
 for i in $(omg get deployment | grep osd | awk '{print $1}'); do
   echo $i >> $FILE
   omg get deployment $i -o yaml | grep "\- devicePath:" | grep -v block >> $FILE 
