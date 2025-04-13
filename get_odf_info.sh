@@ -50,4 +50,4 @@ done
 
 #Main
 collect_data
-#collect_podlogs
+collect_podlogs
