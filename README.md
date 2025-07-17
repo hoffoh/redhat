@@ -10,11 +10,11 @@ NOTE: If you find any issue running them please reach me at rafrojas@redhat.com
 
 Will scan home directory for case numbers and give a list, you need to select the case to get a list of sos-reports, finally select the number of the report to get data
 
-### To generate a Ceph/ODF report of general status 
+### To generate a Ceph/ODF report of general status on Supportshell with a ODF Must-gather
 
     - bash ./PreChecks.sh
 
-Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get data from selected ODF Must gather on the case
+Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get data from selected ODF Must gather on the case, it's important to remove last "/" if you manually add the path as an argument
 
 * If you provides argument with the path of the must-gather it will go through the directory after confirm the case number to create the report
 
