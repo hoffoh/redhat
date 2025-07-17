@@ -22,9 +22,9 @@ Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get d
 
 # Share with customer 
 
-## Share with customer below scripts to collect Ceph data from operator/toolbox or ODF data when must-gather is failing:
+Those scripts are collecting data from the cluster using "OC" cli, requires to be executed on a node with access to the cluster
 
-### Scripts to generate a report from Ceph:
+## Scripts to generate a report from Ceph:
 
   Using rook-ceph-operator pod:
 
@@ -46,7 +46,7 @@ Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get d
 
 Script is created assuming that you have devices named /dev/sdX , you need to change the head command on the script if are different (Ex. vda,vdb...)
 
-# OSD Symlink Scripts #
+# OSD Symlink Scripts
 
   To be used with OC cli, generally on customer clusters or internal labs running oc command
 
