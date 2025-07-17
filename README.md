@@ -1,4 +1,4 @@
-# Scripts to help troubleshooting Openshift Data Foundations by Rafrojas
+# Scripts to help troubleshooting Openshift Data Foundations
 
 Here a set of scripts to collect data on Openshift Data Foundations, those scripts are tested on lab clusters, are providing an output file with the content of the executed commands.
 NOTE: If you find any issue running them please reach me at rafrojas@redhat.com
