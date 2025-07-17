@@ -46,7 +46,7 @@ Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get d
 
 Script is created assuming that you have devices named /dev/sdX , you need to change the head command on the script if are different (Ex. vda,vdb...)
 
-### OSD Symlink Scripts ###
+# OSD Symlink Scripts #
 
   To be used with OC cli, generally on customer clusters or internal labs running oc command
 
