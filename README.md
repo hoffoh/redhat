@@ -45,3 +45,13 @@ Collect ODF/CEPH data from ODF must-gather, copy paste the absolut path to get d
     - bash get_lso_info.sh
 
 Script is created assuming that you have devices named /dev/sdX , you need to change the head command on the script if are different (Ex. vda,vdb...)
+
+### OSD Symlink Scripts ###
+
+  To be used with OC cli, generally on customer clusters or internal labs running oc command
+
+    - get_osd_symlinks.sh
+
+  To be used on Suportshell, will use OMC binary with the data currently being used by this binary
+
+    - get_osd_symlinks_internal.sh
