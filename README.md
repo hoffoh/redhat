@@ -1,16 +1,17 @@
-# Scripts to help troubleshooting Rafrojas
+# Scripts to help troubleshooting Openshift Data Foundations by Rafrojas
 
+Here a set of scripts to collect data on Openshift Data Foundations, those scripts are tested on lab clusters, are providing an output file with the content of the executed commands.
 NOTE: If you find any issue running them please reach me at rafrojas@redhat.com
 
-# Used on supportshell
+# Used on supportshell, for internal use
 
-### To generate a glusterfs report of the cluster
+## To generate a glusterfs report of the cluster
 
     - bash ./checksos.sh
 
 Will scan home directory for case numbers and give a list, you need to select the case to get a list of sos-reports, finally select the number of the report to get data
 
-### To generate a Ceph/ODF report of general status on Supportshell with a ODF Must-gather
+## To generate a Ceph/ODF report of general status on Supportshell with a ODF Must-gather
 
     - bash ./PreChecks.sh
 
@@ -33,8 +34,6 @@ Those scripts are collecting data from the cluster using "OC" cli, requires to b
   Using rook-ceph-toolbox pod:
 
     - bash get_ceph_info_toolbox.sh
-
-
 
 ## Script to generate a report from ODF:
 
