@@ -24,7 +24,7 @@ collect_data () {
 for i in ${ITEMS[@]}
 do echo '' >> $FILENAME
         echo "#> $i" >> $FILENAME
-        eval "$i" >> $FILENAME 2> /dev/null
+        eval "$i" >> $FILENAME 2>&1
 done
 }
  
