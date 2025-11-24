@@ -7,7 +7,7 @@
 clear
 SPACE="echo " 
 LINE="echo -------------------------------------------------------------------------------------------------------"
-TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL" "HISTORY" "JOBS" "SKEW" "BLUESTORE")
+TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL" "HISTORY" "JOBS" "SKEW" "BLUESTORE" "STORAGECLUSTER")
 MANUALPATH=$1
 CEPH_CMD=("ceph_health_detail" "ceph_status" "ceph_df_detail" "ceph_device_ls" "ceph_osd_df_tree" "ceph_versions" "ceph_time-sync-status")
 OSD_HISTORY="cluster-scoped-resources/config.openshift.io/clusterversions/version.yaml"
@@ -121,6 +121,8 @@ function get_odf (){
   omg get jobs >> $FILE
   X=6;print_title
   cat $FINAL_PATH/namespaces/openshift-storage/oc_output/csv  >> $FILE && print_space
+  X=16;print_title
+  egrep -i "phase|flexiblescaling|cephdeviceclass|  count|replica|storageClassName|failureDomain:|mondatadirhostpath" $FINAL_PATH/namespaces/openshift-storage/oc_output/storagecluster.yaml >> $FILE && print_space
   X=7;print_title
   omg get deployments >> $FILE && print_space
   X=8;print_title
