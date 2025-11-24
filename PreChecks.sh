@@ -33,7 +33,7 @@ function get_case (){
     $LINE
     for n in $(echo $GETCASES)
     do  
-      echo "-    $n" 
+      echo -n "-    $n ->    " && date -d "$(stat -c %w ~/$n)" +"%d/%m/%Y"
     done
   fi
   $LINE && $LINE
@@ -122,7 +122,8 @@ function get_odf (){
   X=6;print_title
   cat $FINAL_PATH/namespaces/openshift-storage/oc_output/csv  >> $FILE && print_space
   X=16;print_title
-  egrep -i "phase|flexiblescaling|cephdeviceclass|  count|replica|storageClassName|failureDomain:|mondatadirhostpath" $FINAL_PATH/namespaces/openshift-storage/oc_output/storagecluster.yaml >> $FILE && print_space
+  egrep -i "phase|flexiblescaling|cephdeviceclass|storageClassName|failureDomain:|mondatadirhostpath" $FINAL_PATH/namespaces/openshift-storage/oc_output/storagecluster.yaml >> $FILE 
+  sed -n '/storageDeviceSets:/,$p' $FINAL_PATH/namespaces/openshift-storage/oc_output/storagecluster.yaml | grep -E "count: |replica: " >> $FILE && print_space
   X=7;print_title
   omg get deployments >> $FILE && print_space
   X=8;print_title
