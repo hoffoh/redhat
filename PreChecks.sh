@@ -79,7 +79,8 @@ function get_data (){
       do  
         SEQ=$((SEQ+1))
         $SPACE
-        echo "  $SEQ: $i"
+        echo "  $SEQ: $i" 
+        echo -n "    ^^^^ " && date -d "$(stat -c %w $i)" +"%d/%m/%Y"
         $SPACE 
       done 
       $LINE
