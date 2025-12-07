@@ -7,17 +7,16 @@
 clear
 SPACE="echo " 
 LINE="echo -------------------------------------------------------------------------------------------------------"
-TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL" "HISTORY" "JOBS" "SKEW" "BLUESTORE" "STORAGECLUSTER" "PODS NOT RUNNING")
+TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL" "HISTORY" "JOBS" "SKEW" "BLUESTORE" "STORAGECLUSTER" "PODS NOT RUNNING" "CEPH HISTORY")
 MANUALPATH=$1
-CEPH_CMD=("ceph_health_detail" "ceph_status" "ceph_df_detail" "ceph_device_ls" "ceph_osd_df_tree" "ceph_versions" "ceph_time-sync-status")
+CEPH_CMD=("ceph_health_detail" "ceph_status" "ceph_df_detail" "ceph_device_ls" "ceph_osd_df_tree" "ceph_versions" "ceph_time-sync-status" "ceph_healthcheck_history_ls")
 OSD_HISTORY="cluster-scoped-resources/config.openshift.io/clusterversions/version.yaml"
 ##################Functions##################################
 
 function main_menu (){
   get_case
-  FILE="$CASENUM"_Pre.out && get_data
-  $LINE && $SPACE && echo "Ceph path: $CEPH_FINAL_PATH" &&  echo "ODF path: $FINAL_PATH" && $SPACE
-  echo "File: $FILE" && $SPACE
+  FILE="$CASENUM"_Pre.out && get_data 
+  $LINE && $SPACE && echo "File: $FILE" && $SPACE && $LINE
 }
 
 function get_case (){
@@ -97,6 +96,8 @@ function get_ceph (){
   Y=0;print_ceph
   X=0;print_title
   Y=1;print_ceph
+  X=18;print_title
+  Y=7;print_ceph; echo >> $FILE
   Y=2;print_ceph
   X=2;print_title
   Y=4;print_ceph
@@ -123,7 +124,7 @@ function get_odf (){
   X=6;print_title
   cat $FINAL_PATH/namespaces/openshift-storage/oc_output/csv  >> $FILE && print_space
   X=16;print_title
-  egrep -i "phase|flexiblescaling|cephdeviceclass|storageClassName|failureDomain:|mondatadirhostpath" $FINAL_PATH/namespaces/openshift-storage/oc_output/storagecluster.yaml >> $FILE 
+  egrep -i "phase|flexiblescaling|cephdeviceclass|storageClassName|failureDomain:|mondatadirhostpath|creationTimestamp" $FINAL_PATH/namespaces/openshift-storage/oc_output/storagecluster.yaml >> $FILE 
   sed -n '/storageDeviceSets:/,$p' $FINAL_PATH/namespaces/openshift-storage/oc_output/storagecluster.yaml | grep -E "count: |replica: " >> $FILE && print_space
   X=7;print_title
   omc get deployments >> $FILE && print_space
