@@ -7,7 +7,7 @@
 clear
 SPACE="echo " 
 LINE="echo -------------------------------------------------------------------------------------------------------"
-TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL" "HISTORY" "JOBS" "SKEW" "BLUESTORE" "STORAGECLUSTER")
+TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL" "HISTORY" "JOBS" "SKEW" "BLUESTORE" "STORAGECLUSTER" "PODS NOT RUNNING")
 MANUALPATH=$1
 CEPH_CMD=("ceph_health_detail" "ceph_status" "ceph_df_detail" "ceph_device_ls" "ceph_osd_df_tree" "ceph_versions" "ceph_time-sync-status")
 OSD_HISTORY="cluster-scoped-resources/config.openshift.io/clusterversions/version.yaml"
@@ -62,8 +62,8 @@ function get_data (){
       FINAL_PATH="/cases/$CASENUM/$MANUALPATH"
       CEPH_FINAL_PATH="$FINAL_PATH/ceph/must_gather_commands"
       get_ceph
-      $LINE &&  $SPACE && echo "Ceph path: $CEPH_FINAL_PATH" &&  echo "ODF path: $MGSUBPATH" && $SPACE
-      echo "File: $FILE" && $SPACE
+  #    $LINE &&  $SPACE && echo "Ceph path: $CEPH_FINAL_PATH" &&  echo "ODF path: $MGSUBPATH" && $SPACE
+  #    echo "File: $FILE" && $SPACE
       exit 0
   fi
 
@@ -128,10 +128,12 @@ function get_odf (){
   X=7;print_title
   omc get deployments >> $FILE && print_space
   X=8;print_title
-  omc get events >> $FILE
+  omc get events | egrep "failed|error" >> $FILE
   X=9;print_title
   omc get pvc | head -n 1 >> $FILE
   omc get pvc |grep deviceset >> $FILE && print_space
+  X=17;print_title
+  omc get pods -o wide | egrep -v "Running|Completed" >> $FILE
   X=10;print_title
   echo -e "POD_NAME\tPVC\tPV\tNODE\tPATH\tSTATUS" >> $FILE
   omc get pods -l app=rook-ceph-osd -o 'custom-columns=NAME:.metadata.name,PVC:.spec.volumes.*.persistentVolumeClaim.claimName,PV:.spec.volumeName,NODE:.spec.nodeName,STATUS:.status.phase' --no-headers | \
