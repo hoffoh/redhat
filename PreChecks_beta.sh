@@ -93,7 +93,7 @@ function get_data (){
 function get_ceph (){
   echo "CASE: $CASENUM " > $FILE ; $LINE >> $FILE
   omc use $FINAL_PATH >> $FILE ; print_space ; omc project openshift-storage
-  echo "[CEPH]" >> $FILE ; print_space
+  echo "[CEPH]" >> $FILE
   X=11;print_title
   Y=0;print_ceph
   X=0;print_title
