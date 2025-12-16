@@ -161,9 +161,8 @@ function get_noobaa (){
   omc get pvc -l app=noobaa >> $FILE
   X=21;print_title
   cat $FINAL_PATH/noobaa/raw_output/obc_list  >> $FILE && print_space
-
+  vim $FILE
 }
 
 ##########################Main#####################################
 main_menu
-vim $FILE
