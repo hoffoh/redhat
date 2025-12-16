@@ -7,7 +7,7 @@
 clear
 SPACE="echo " 
 LINE="echo -------------------------------------------------------------------------------------------------------"
-TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL" "HISTORY" "JOBS" "SKEW" "BLUESTORE" "STORAGECLUSTER" "PODS NOT RUNNING" "CEPH HISTORY")
+TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL" "HISTORY" "JOBS" "SKEW" "BLUESTORE" "STORAGECLUSTER" "PODS NOT RUNNING" "CEPH HISTORY" "NOOBAA" "DB PVC" "OBCs")
 MANUALPATH=$1
 CEPH_CMD=("ceph_health_detail" "ceph_status" "ceph_df_detail" "ceph_device_ls" "ceph_osd_df_tree" "ceph_versions" "ceph_time-sync-status" "ceph_healthcheck_history_ls")
 OSD_HISTORY="cluster-scoped-resources/config.openshift.io/clusterversions/version.yaml"
@@ -151,7 +151,19 @@ function get_odf (){
       echo "Skipping line (PVC name not found or N/A): $pod_name"
     fi
   done
+  get_noobaa
+}
+
+function get_noobaa (){
+  X=19;print_title
+  omc get pods -l app=noobaa >> $FILE
+  X=20;print_title
+  omc get pvc -l app=noobaa >> $FILE
+  X=21;print_title
+  cat $FINAL_PATH/noobaa/raw_output/obc_list  >> $FILE && print_space
+
 }
 
 ##########################Main#####################################
 main_menu
+vim $FILE
