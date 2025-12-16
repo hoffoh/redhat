@@ -91,7 +91,9 @@ function get_data (){
 }
 
 function get_ceph (){
-  echo '' > $FILE ; echo "[CEPH]" >> $FILE
+  echo "CASE: $CASENUM " > $FILE ; $LINE >> $FILE
+  omc use $FINAL_PATH >> $FILE ; print_space ; omc project openshift-storage
+  echo "[CEPH]" >> $FILE ; print_space
   X=11;print_title
   Y=0;print_ceph
   X=0;print_title
@@ -115,7 +117,6 @@ function get_ceph (){
 }
 
 function get_odf (){
-  omc use $FINAL_PATH ; omc project openshift-storage
   echo "[OCP]" >> $FILE
   X=12;print_title
   cat $FINAL_PATH/$OSD_HISTORY | grep -A200 " history:" | grep -Ei " version:|completion" >> $FILE && print_space
