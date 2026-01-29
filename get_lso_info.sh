@@ -12,6 +12,7 @@ ITEMS=(
 "ls -lR /mnt/local-storage/"
 "head --bytes=60 /dev/sd[a-z]"
 "head --bytes=60 /dev/vd[a-z]"
+"head --bytes=60 /dev/nvme[0-9]n[0-1]"
 "head --bytes=60 /dev/nvme[0-9]n[0-1]p[0-1]"
 ) 
 
