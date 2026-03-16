@@ -21,6 +21,7 @@ ITEMS=(
 "$CEPHCMD ceph device ls"
 "$CEPHCMD ceph config dump"
 "$CEPHCMD ceph osd dump"
+"$CEPHCMD ceph healthcheck history ls"
 )
 
 #-- Control the field separator for array spaces --
