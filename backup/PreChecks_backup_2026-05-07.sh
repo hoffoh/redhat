@@ -7,11 +7,10 @@
 clear
 SPACE="echo " 
 LINE="echo -------------------------------------------------------------------------------------------------------"
-TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL" "HISTORY" "JOBS" "SKEW" "BLUESTORE" "STORAGECLUSTER" "PODS NOT RUNNING" "CEPH HISTORY" "NOOBAA" "DB PVC" "OBCs" "IOPS" "PLATFORM" "NODES" "LOCAL PATH")
+TITLES=("HEALTH" "DEVICES" "TREE" "OSD" "VERSION" "PVC" "CSV" "DEPLOYMENTS" "EVENTS" "PV" "OSD" "DETAIL" "HISTORY" "JOBS" "SKEW" "BLUESTORE" "STORAGECLUSTER" "PODS NOT RUNNING" "CEPH HISTORY" "NOOBAA" "DB PVC" "OBCs")
 MANUALPATH=$1
 CEPH_CMD=("ceph_health_detail" "ceph_status" "ceph_df_detail" "ceph_device_ls" "ceph_osd_df_tree" "ceph_versions" "ceph_time-sync-status" "ceph_healthcheck_history_ls")
 OSD_HISTORY="cluster-scoped-resources/config.openshift.io/clusterversions/version.yaml"
-PLATFORM="cluster-scoped-resources/config.openshift.io/infrastructures/cluster.yaml"
 ##################Functions##################################
 
 function main_menu (){
@@ -108,8 +107,6 @@ function get_ceph (){
   Y=6;print_ceph
   X=15;print_title
   cat $CEPH_FINAL_PATH/ceph_report | jq -c '.osd_metadata[] | { OSD: .id, bluestore: .bluestore_min_alloc_size  }' >> $FILE
-  X=22;print_title
-  cat $CEPH_FINAL_PATH/ceph_config_dump | grep -E "(WHO|mclock_max_capacity)" >> $FILE
   X=1;print_title
   Y=3;print_ceph
   X=3;print_title
@@ -121,10 +118,6 @@ function get_ceph (){
 
 function get_odf (){
   echo "[OCP]" >> $FILE
-  X=23;print_title
-  egrep "  platform:" $FINAL_PATH/$PLATFORM >> $FILE && print_space 
-  X=24;print_title
-  omc get nodes >> $FILE
   X=12;print_title
   cat $FINAL_PATH/$OSD_HISTORY | grep -A200 " history:" | grep -Ei " version:|completion" >> $FILE && print_space
   X=13;print_title
@@ -139,13 +132,26 @@ function get_odf (){
   X=8;print_title
   omc get events | egrep "failed|error" >> $FILE
   X=9;print_title
-  omc get pvc |egrep "deviceset|NAME" >> $FILE && print_space
-  X=25;print_title
-  omc get pv -o 'custom-columns=NAME:.metadata.name,HOST:.metadata.labels.kubernetes\.io\/hostname,PATH:.spec.local.path,DEVICENAME:.metadata.annotations.storage\.openshift\.com\/device-name,SIZE:.spec.capacity.storage,STATUS:.status.phase' | grep local-pv >> $FILE && print_space
+  omc get pvc | head -n 1 >> $FILE
+  omc get pvc |grep deviceset >> $FILE && print_space
   X=17;print_title
   omc get pods -o wide | egrep -v "Running|Completed" >> $FILE
   X=10;print_title
-  omc get pods -l app=rook-ceph-osd -o 'custom-columns=NAME:.metadata.name,PVC:.spec.volumes.*.persistentVolumeClaim.claimName,NODE:.spec.nodeName,STATUS:.status.phase' >> $FILE && print_space
+  echo -e "POD_NAME\tPVC\tPV\tNODE\tPATH\tSTATUS" >> $FILE
+  omc get pods -l app=rook-ceph-osd -o 'custom-columns=NAME:.metadata.name,PVC:.spec.volumes.*.persistentVolumeClaim.claimName,PV:.spec.volumeName,NODE:.spec.nodeName,STATUS:.status.phase' --no-headers | \
+   while read -r pod_name pvc_name node status; do
+    if [ -n "$pvc_name" ] && [ "$pvc_name" != "N/A" ]; then
+       pv_from_pvc=$(omc get pvc "$pvc_name" -o 'custom-columns=PV:.spec.volumeName' --no-headers 2>/dev/null)
+       local_path=$(omc get pv "$pv_from_pvc" -o 'custom-columns=PV:.spec.local.path' --no-headers 2>/dev/null)
+      if [ -n "$pv_from_pvc" ]; then
+        echo -e "$pod_name\t$pvc_name\t$pv_from_pvc\t$node\t$local_path\t$status" >> $FILE
+      else
+        echo "  PV for $pvc_name: Not found"
+      fi
+    else
+      echo "Skipping line (PVC name not found or N/A): $pod_name"
+    fi
+  done
   get_noobaa
 }
 
